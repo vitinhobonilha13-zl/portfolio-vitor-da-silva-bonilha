@@ -47,5 +47,5 @@ Apaixonado por computação e tecnologia, busco constantemente evoluir minhas ha
 | Projeto | Descrição | Link |
 | :--- | :--- | :---: |
 | **A Corrida do Prompt** | Projeto focado no domínio de técnicas de engenharia de prompts para comunicação eficiente com modelos de linguagem (LLMs), visando respostas mais precisas e otimizadas. | [Ver Projeto](./projeto-a-corrida-do-prompt/) |
-
+| **Laboratório de Classificação Visual** | Projeto prático de IA utilizando o Teachable Machine para demonstrar como conjuntos de dados enviesados influenciam decisões algorítmicas. | [Ver Projeto](./projeto-laboratório-de-classificação-visual/) |
 ---
