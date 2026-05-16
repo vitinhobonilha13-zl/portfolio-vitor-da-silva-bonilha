@@ -1,0 +1,46 @@
+{
+  "entities": {
+    "HistoryItem": {
+      "title": "History Item",
+      "description": "A saved QR code in the user's history.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["URL", "Text", "Email", "Wi-Fi", "Image"] },
+        "data": { "type": "object" },
+        "timestamp": { "type": "integer" },
+        "options": {
+          "type": "object",
+          "properties": {
+            "dotType": { "type": "string" },
+            "cornerType": { "type": "string" },
+            "qrColor": { "type": "string" },
+            "qrBgColor": { "type": "string" }
+          }
+        }
+      },
+      "required": ["id", "type", "data", "timestamp", "options"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Public profile for the user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" }
+      },
+      "required": ["userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile data."
+    },
+    "/users/{userId}/history/{qrId}": {
+      "schema": "HistoryItem",
+      "description": "User's QR code history."
+    }
+  }
+}

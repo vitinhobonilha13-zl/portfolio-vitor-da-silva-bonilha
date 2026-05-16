@@ -1,0 +1,67 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation Blueprints
+    function isValidHistoryItem(data) {
+      return data.keys().hasAll(['id', 'type', 'data', 'timestamp', 'options'])
+        && data.id is string
+        && data.type in ['URL', 'Text', 'Email', 'Wi-Fi', 'Image']
+        && data.timestamp is int
+        && data.options is map
+        && data.options.keys().hasAll(['dotType', 'cornerType', 'qrColor', 'qrBgColor'])
+        && data.options.qrColor is string && data.options.qrColor.size() <= 7
+        && data.options.qrBgColor is string && data.options.qrBgColor.size() <= 7;
+    }
+
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['userId'])
+        && data.userId == request.auth.uid
+        && (data.get('displayName', '') is string)
+        && (data.get('photoURL', '') is string);
+    }
+
+    // Rules for Users collection
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUserProfile(incoming());
+      allow update: if isOwner(userId) && isValidUserProfile(incoming()) 
+        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'photoURL']);
+      allow delete: if false; // Profiles are permanent
+
+      // Subcollection for history
+      match /history/{qrId} {
+        allow list, get: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(qrId) && isValidHistoryItem(incoming());
+        allow update: if false; // History items are immutable usually, but let's allow if schema is same
+        allow delete: if isOwner(userId);
+      }
+    }
+  }
+}
