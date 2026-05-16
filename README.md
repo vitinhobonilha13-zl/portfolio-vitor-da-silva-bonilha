@@ -51,4 +51,5 @@ Apaixonado por computação e tecnologia, busco constantemente evoluir minhas ha
 | **Batalha de Modelos & Engenharia de Prompt (XML)** | Projeto experimental de Prompt Engineering voltado à análise comparativa entre diferentes LLMs, avaliando precisão, conformidade com prompts estruturados em XML e desempenho na geração de páginas Front-end em HTML e CSS. | [Ver Projeto](./projeto-batalha-de-modelos-e-engenharia-de-prompt/) |
 | **Engenharia Reversa** |Projeto de engenharia reversa assistida por IA utilizando o Google AI Studio para reconstrução de aplicações web. | [Ver Projeto](./projeto-engenharia-reversa/) |
 | **MVP+ Gerador de QRCODE** | WebApp para criação de QRCODE's inclusivos e customizados. | [Ver Projeto](./projeto-mvp-qrcode/) |
+| *Engenharia de Software e IA com Bubble.io* | Aplicação web de gestão desenvolvida no Bubble com apoio de Inteligência Artificial para automação de processos e aumento de produtividade. O projeto aplica fundamentos de engenharia de software, com foco em segurança, escalabilidade e organização da arquitetura.. | [Ver Projeto](./projeto-engenharia-de-software-e-ia-com-bubble.io/) |
 ---
